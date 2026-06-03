@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', 'Inter', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* ⚡ Ensure dark mode body actually has a deep slate canvas color */
+  background-color: #ffffff;
+}
+
+.dark body {
+  background-color: #020617; /* Slate-950 */
+}
+
+.font-sans { font-family: var(--font-sans); }
+.font-display { font-family: var(--font-display); }
+
+/* ═══ Animated Background Blobs ═══ */
+.animated-bg {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px); /* Slightly increased blur for a smoother glow transition */
+  opacity: 0.55;       /* ⚡ Boosted base opacity from 0.35 to 0.55 */
+  will-change: transform;
+}
+
+/* ⚡ Swapped to richer, vibrant color codes to bring out the Teal & Yellow mix */
+.blob-1 {
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(20,184,166,0.6) 0%, transparent 70%); /* Rich Teal */
+  top: -10%;
+  left: -5%;
+  animation: blobDrift1 20s ease-in-out infinite;
+}
+
+.blob-2 {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(163,230,53,0.5) 0%, transparent 70%); /* Lime / Yellow-Green */
+  top: 50%;
+  right: -8%;
+  animation: blobDrift2 25s ease-in-out infinite;
+}
+
+.blob-3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(234,179,8,0.45) 0%, transparent 70%); /* Bright Yellow/Amber */
+  bottom: -5%;
+  left: 30%;
+  animation: blobDrift3 22s ease-in-out infinite;
+}
+
+.blob-4 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(20,184,166,0.4) 0%, transparent 70%);
+  top: 30%;
+  left: 50%;
+  animation: blobDrift4 28s ease-in-out infinite;
+}
+
+@keyframes blobDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(80px, 40px) scale(1.1); }
+  50% { transform: translate(30px, 80px) scale(0.95); }
+  75% { transform: translate(-40px, 20px) scale(1.05); }
+}
+
+@keyframes blobDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(-60px, -30px) scale(1.08); }
+  50% { transform: translate(-20px, -60px) scale(0.92); }
+  75% { transform: translate(40px, -20px) scale(1.05); }
+}
+
+@keyframes blobDrift3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(50px, -40px) scale(1.1); }
+  66% { transform: translate(-30px, -20px) scale(0.95); }
+}
+
+@keyframes blobDrift4 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  20% { transform: translate(-50px, 30px) scale(1.12); }
+  40% { transform: translate(20px, 60px) scale(0.9); }
+  60% { transform: translate(50px, -10px) scale(1.05); }
+  80% { transform: translate(-20px, -40px) scale(0.98); }
+}
+
+/* ═══ Floating Particles ═══ */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.particle-dot {
+  width: 5px;
+  height: 5px;
+  background: rgba(20,184,166,0.45);
+}
+
+.particle-circle {
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid rgba(163,230,53,0.4);
+  background: transparent;
+}
+
+.particle-glow {
+  width: 9px;
+  height: 9px;
+  background: rgba(234,179,8,0.5);
+  box-shadow: 0 0 12px rgba(234,179,8,0.4);
+}
+
+@keyframes particleFloat1 {
+  0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
+  50% { transform: translateY(-30px) translateX(15px); opacity: 0.8; }
+}
+
+@keyframes particleFloat2 {
+  0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
+  50% { transform: translateY(-40px) translateX(-20px); opacity: 0.7; }
+}
+
+@keyframes particleFloat3 {
+  0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.5; }
+  50% { transform: translateY(-25px) translateX(10px); opacity: 0.9; }
+}
+
+/* ═══ Skeleton Shimmer ═══ */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(148,163,184,0.1) 25%,
+    rgba(148,163,184,0.2) 50%,
+    rgba(148,163,184,0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+.dark .skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(51,65,85,0.3) 25%,
+    rgba(51,65,85,0.5) 50%,
+    rgba(51,65,85,0.3) 75%
+  );
+  background-size: 200% 100%;
+}
+
+/* ═══ Dark mode background override fixed ═══ */
+.dark .blob { 
+  opacity: 0.35; /* ⚡ Boosted from 0.15 to 0.35 so they remain visible in dark panels */
+} 
+.dark .particle-dot { background: rgba(20,184,166,0.35); }
+.dark .particle-circle { border-color: rgba(163,230,53,0.3); }
+.dark .particle-glow { background: rgba(234,179,8,0.35); box-shadow: 0 0 14px rgba(234,179,8,0.25); }
+
+/* ═══ Scrollbar ═══ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.5); }

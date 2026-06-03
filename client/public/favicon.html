@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Favicon</title>
+</head>
+<body>
+    <canvas id="canvas" width="256" height="256"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Background
+        ctx.fillStyle = '#14B8A6';
+        ctx.fillRect(0, 0, 256, 256);
+        
+        // Gradient
+        const grad = ctx.createLinearGradient(0, 0, 256, 256);
+        grad.addColorStop(0, '#14B8A6');
+        grad.addColorStop(1, '#84CC16');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 256, 256);
+        
+        // Draw "S" for Shrink
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 180px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('S', 128, 128);
+        
+        // Download
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/x-icon');
+        link.download = 'favicon.ico';
+        link.click();
+    </script>
+</body>
+</html>
