@@ -183,6 +183,8 @@ Real-time analytics via WebSockets
 
 Built as a full-stack SaaS project using MERN stack for learning and hackathon submission.
 
+youtube video link:https://youtu.be/MwCQYx98Y6w?si=e7AgKbK5GK-eL2Ie
+
 📜 License
 
 This project is for educational purposes only.
