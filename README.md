@@ -145,13 +145,11 @@ REST API (Express)
 Backend Logic (Node.js)
       ↓
 Database (MongoDB)
+
 🎥 Demo Video
 
-👉 Add your demo video link here:
+youtube video link:https://youtu.be/MwCQYx98Y6w?si=e7AgKbK5GK-eL2Ie
 
-https://your-video-link-here.com
-
-⚠️ Note: A working video demonstration is mandatory for evaluation.
 
 🚀 API Endpoints
 Authentication
@@ -179,11 +177,7 @@ Advanced analytics (geo/device tracking)
 Dark mode support
 CSV bulk upload
 Real-time analytics via WebSockets
-👨‍💻 Author
 
-Built as a full-stack SaaS project using MERN stack for learning and hackathon submission.
-
-youtube video link:https://youtu.be/MwCQYx98Y6w?si=e7AgKbK5GK-eL2Ie
 
 📜 License
 
