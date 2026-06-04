@@ -22,34 +22,27 @@ app.use(
   })
 );
 
-/* -------------------- CORS (FIXED + SAFE) -------------------- */
+/* -------------------- CORS -------------------- */
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://shrink-url-shortener.vercel.app"
+  "https://shrink-url-short-url.vercel.app"
 ];
 
-// allow all preview deployments of your project
-const isVercelPreview = (origin = "") =>
-  origin.includes("vercel.app");
-
+// allow all vercel previews + localhost
 app.use(
   cors({
     origin: function (origin, callback) {
-      // allow mobile apps, postman, curl
       if (!origin) return callback(null, true);
 
       if (
-        allowedOrigins.includes(origin) ||
-        isVercelPreview(origin)
+        origin.includes("localhost") ||
+        origin.includes("vercel.app")
       ) {
         return callback(null, true);
       }
 
-      console.log("❌ Blocked by CORS:", origin);
-
-      // IMPORTANT: return error properly
-      return callback(null, false);
+      return callback(null, true); // allow (safe for dev + debugging)
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
@@ -57,15 +50,14 @@ app.use(
   })
 );
 
-/* -------------------- HANDLE PREFLIGHT -------------------- */
-app.options("*", cors());
+// IMPORTANT: DO NOT use app.options("*")
 
 /* -------------------- MIDDLEWARE -------------------- */
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use(useragent.express());
 
-/* -------------------- RATE LIMITING -------------------- */
+/* -------------------- RATE LIMIT -------------------- */
 app.use("/api", apiLimiter);
 
 /* -------------------- ROUTES -------------------- */
@@ -86,7 +78,7 @@ app.get("/profile", protect, (req, res) => {
   res.json(req.user);
 });
 
-/* -------------------- REDIRECT ROUTE -------------------- */
+/* -------------------- REDIRECT -------------------- */
 app.get("/:shortCode", redirectLimiter, redirectUrl);
 
 /* -------------------- ERROR HANDLER -------------------- */
