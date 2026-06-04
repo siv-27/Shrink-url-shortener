@@ -204,8 +204,13 @@ const redirectUrl = async (req, res) => {
     }
 
     if (url.password) {
-      const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
-      return res.redirect(`${clientUrl}/unlock/${shortCode}`);
+      const clientUrl = process.env.CLIENT_URL;
+
+if (!clientUrl) {
+  return res.status(500).json({ message: "CLIENT_URL not configured" });
+}
+
+return res.redirect(`${clientUrl}/unlock/${shortCode}`);
     }
 
     const details = parseVisitDetails(req);
