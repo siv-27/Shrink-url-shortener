@@ -22,21 +22,21 @@ app.use(
   })
 );
 
-/* -------------------- CORS FIX (IMPORTANT) -------------------- */
+/* -------------------- CORS (FIXED + SAFE) -------------------- */
 
 const allowedOrigins = [
   "http://localhost:5173",
   "https://shrink-url-shortener.vercel.app"
 ];
 
-// allow ANY Vercel preview domain for your project
-const isVercelPreview = (origin) =>
-  /^https:\/\/shrink-url-shortener[-.].*\.vercel\.app$/.test(origin);
+// allow all preview deployments of your project
+const isVercelPreview = (origin = "") =>
+  origin.includes("vercel.app");
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // allow tools like Postman, curl
+      // allow mobile apps, postman, curl
       if (!origin) return callback(null, true);
 
       if (
@@ -47,7 +47,9 @@ app.use(
       }
 
       console.log("❌ Blocked by CORS:", origin);
-      return callback(null, false); // IMPORTANT: DO NOT throw error
+
+      // IMPORTANT: return error properly
+      return callback(null, false);
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
@@ -55,7 +57,7 @@ app.use(
   })
 );
 
-// handle preflight requests
+/* -------------------- HANDLE PREFLIGHT -------------------- */
 app.options("*", cors());
 
 /* -------------------- MIDDLEWARE -------------------- */
