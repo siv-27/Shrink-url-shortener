@@ -24,8 +24,24 @@ app.use(
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://shrink-url-shortener-ivygcrl95-siv-27s-projects.vercel.app"
+  "https://shrink-url-shortener-o6f6ekec9-siv-27s-projects.vercel.app"
 ];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log("Blocked by CORS:", origin);
+      callback(null, false); // IMPORTANT: do NOT throw error
+    }
+  },
+  credentials: true
+}));
+
+app.options("*", cors());
 
 app.use(cors({
   origin: function (origin, callback) {
