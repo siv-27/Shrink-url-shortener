@@ -11,11 +11,10 @@ export default function UrlTable({ urls, loading, onRefresh }) {
   const [editingUrl, setEditingUrl] = useState(null); // URL Object for Edit Modal
   const [editForm, setEditForm] = useState({ originalUrl: "", category: "", expiryDate: "" });
 
-  const handleCopy = (code) => {
-    const fullUrl = `http://localhost:5000/${code}`;
-    navigator.clipboard.writeText(fullUrl);
-    toast.success("Shortened link copied to clipboard!");
-  };
+const handleCopy = (code) => {
+  const fullUrl = `${import.meta.env.VITE_API_URL}/${code}`;
+  navigator.clipboard.writeText(fullUrl);
+};
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this link? All visit history will be permanently erased.")) return;
@@ -128,7 +127,7 @@ export default function UrlTable({ urls, loading, onRefresh }) {
         </thead>
         <tbody className="divide-y divide-slate-100 dark:divide-slate-800/30">
           {urls.map((url) => {
-            const fullShort = `http://localhost:5000/${url.shortCode}`;
+            const fullShort = `${import.meta.env.VITE_API_URL}/${url.shortCode}`;
             return (
               <tr key={url._id} className="hover:bg-slate-50/40 dark:hover:bg-slate-950/10 transition-colors">
                 {/* Details */}
@@ -260,7 +259,7 @@ export default function UrlTable({ urls, loading, onRefresh }) {
         <div className="bg-white p-4 rounded-xl border border-slate-200/60 shadow-xs inline-flex justify-center items-center min-w-[232px] min-h-[232px]">
           <QRCodeSVG
             id="qr-svg-ref"
-            value={`http://localhost:5000/${selectedQr.shortCode}`}
+           value={`${import.meta.env.VITE_API_URL}/${selectedQr.shortCode}`}
             size={200}
             level="H"
             includeMargin={false} // 👈 Disabled outer padding to allow CSS to seamlessly handle boundaries cleanly
@@ -270,7 +269,7 @@ export default function UrlTable({ urls, loading, onRefresh }) {
       </div>
       
       <p className="text-xs text-slate-500 dark:text-slate-400 break-all font-mono bg-slate-50 dark:bg-slate-950 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800/40">
-        http://localhost:5000/{selectedQr.shortCode}
+        {`${import.meta.env.VITE_API_URL}/${selectedQr.shortCode}`}
       </p>
 
       <div className="flex gap-3 justify-center">
