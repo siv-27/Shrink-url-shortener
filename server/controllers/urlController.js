@@ -87,7 +87,6 @@ console.log("Generated URL =", `${baseUrl}/${shortCode}`);
       shortUrl: `${baseUrl}/${shortCode}` 
     });
     
-    res.status(201).json(url);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
