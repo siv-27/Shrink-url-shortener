@@ -26,7 +26,7 @@ app.use(
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://shrink-url-short-url.vercel.app"
+  "https://shrink-url-shortener.vercel.app  "
 ];
 
 // allow all vercel previews + localhost
