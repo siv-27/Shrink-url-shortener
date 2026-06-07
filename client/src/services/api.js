@@ -3,8 +3,12 @@ import axios from "axios";
 // 1. Establish the clean base API URL
 const BASE_URL = import.meta.env.VITE_API_URL;
 
+
 const BASE_API_URL =
   BASE_URL ? `${BASE_URL}/api` : "http://localhost:5000/api";
+
+  console.log("BASE_URL:", BASE_URL);
+console.log("BASE_API_URL:", BASE_API_URL);
 
 const api = axios.create({
   baseURL: BASE_API_URL,
@@ -45,6 +49,7 @@ api.interceptors.response.use(
             return api(originalRequest);
           }
         }
+      // eslint-disable-next-line no-unused-vars
       } catch (refreshError) {
         localStorage.removeItem("token");
         localStorage.removeItem("refreshToken");
