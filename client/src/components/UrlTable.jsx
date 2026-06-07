@@ -10,10 +10,12 @@ export default function UrlTable({ urls, loading, onRefresh }) {
   const [selectedQr, setSelectedQr] = useState(null); // URL Object for QR Code Modal
   const [editingUrl, setEditingUrl] = useState(null); // URL Object for Edit Modal
   const [editForm, setEditForm] = useState({ originalUrl: "", category: "", expiryDate: "" });
-
+  
 const handleCopy = (code) => {
-  const fullUrl = `${import.meta.env.VITE_API_URL}/${code}`;
+  const fullUrl = `https://urlshortener-jjpy.onrender.com/${code}`;
+
   navigator.clipboard.writeText(fullUrl);
+  toast.success("Shortened link copied to clipboard!");
 };
 
   const handleDelete = async (id) => {
