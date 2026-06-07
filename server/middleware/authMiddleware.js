@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const protect = async (req, res, next) => {
+  console.log("AUTH HEADER:", req.headers.authorization);
+
   let token;
 
   const apiKey = req.headers["x-api-key"];
