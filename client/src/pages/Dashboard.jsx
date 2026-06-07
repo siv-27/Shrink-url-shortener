@@ -9,12 +9,14 @@ import PageTransition from "../components/PageTransition";
 import AnimatedBackground from "../components/AnimatedBackground";
 import { SkeletonCard } from "../components/SkeletonLoader";
 import toast from "react-hot-toast";
+
 import { getUrls, bulkCreateUrls } from "../services/urlService";
 import { createWorkspace, inviteWorkspaceMember, removeWorkspaceMember, deleteWorkspace, getAdminMetrics, getAdminUrls, getAdminUsers, toggleAbusiveUrl } from "../services/analyticsService";
 import { generateApiKey, deleteApiKey, updateProfile, changePassword, deleteAccount } from "../services/authService";
 import { useTheme } from "../context/ThemeContext";
 import { motion } from "framer-motion";
 import { Link2, Layers, Key, Settings, ShieldAlert, Plus, Users, Shield, Copy, Trash2, Search, SlidersHorizontal, ArrowUpRight, BarChart3, Star, Download, Play, CheckCircle, Sun, Moon } from "lucide-react";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Dashboard() {
   const { user, workspaces, activeWorkspace, auditLogs, reloadWorkspaces, fetchProfile, switchWorkspace, logout } = useAuth();
@@ -663,7 +665,7 @@ export default function Dashboard() {
                   <div className="space-y-2">
                     <p className="text-xs text-slate-500">Shorten links programmatically using headers authentication:</p>
                     <pre className="bg-slate-950 p-4 rounded-xl border border-slate-800 text-teal-400 font-mono text-[10px] md:text-xs overflow-x-auto leading-relaxed">
-{`curl -X POST http://localhost:5000/api/url/create \\
+{`curl -X POST ${API_URL}/api/url/create \\
   -H "Content-Type: application/json" \\
   -H "x-api-key: YOUR_API_KEY_HERE" \\
   -d '{"originalUrl": "https://google.com", "customAlias": "api-demo"}'`}

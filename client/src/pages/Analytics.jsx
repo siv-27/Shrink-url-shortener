@@ -37,7 +37,8 @@ export default function Analytics() {
 
   const handleCopyLink = () => {
     if (!data?.url) return;
-    const fullUrl = `http://localhost:5000/${data.url.shortCode}`;
+    const fullUrl = `${import.meta.env.VITE_API_URL}/${data.url.shortCode}`;
+
     navigator.clipboard.writeText(fullUrl);
     toast.success("Short link copied!");
   };
