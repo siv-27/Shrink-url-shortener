@@ -70,12 +70,23 @@ const createShortUrl = async (req, res) => {
       status: "active"
     });
 
-    await AuditLog.create({
+   await AuditLog.create({
       userId: req.user._id,
       action: "CREATE_URL",
       details: `Created short URL for: ${originalUrl} with code: ${shortCode}`
     });
 
+    // 1. Fetch your BASE_URL from the environment variables safely
+    const baseUrl = process.env.BASE_URL || 'http://localhost:5000';
+
+    console.log("BASE_URL =", process.env.BASE_URL);
+console.log("Generated URL =", `${baseUrl}/${shortCode}`);
+
+    res.status(201).json({
+      ...url._doc,
+      shortUrl: `${baseUrl}/${shortCode}` 
+    });
+    
     res.status(201).json(url);
   } catch (error) {
     res.status(500).json({ message: error.message });
